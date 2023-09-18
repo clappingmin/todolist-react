@@ -17,3 +17,7 @@
 - Link는 유저가 클릭을 해야 한다.
 - 클릭을 기다리지 않고 유저를 이동시키는 방법은 useNavigate이다. (v5애서는 location.push)
 - redirect 하거나 권한이 없는 유저를 이동시킬 때 사용한다.
+
+# useParams
+
+- 라우터에서 :userId를 가져올 때 사용한다.
