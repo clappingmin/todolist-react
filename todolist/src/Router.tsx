@@ -1,17 +1,20 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header/Header';
-import HomePage from './pages/HomePage/HomePage';
+import Root from './Root';
+import { createBrowserRouter } from 'react-router-dom';
 import TodoDetailPage from './pages/TodoDetailPage/TodoDetailPage';
-function Router() {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<TodoDetailPage />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+import HomePage from './pages/HomePage/HomePage';
 
-export default Router;
+const router = createBrowserRouter([
+  {
+    path: '/', // 부모
+    element: <Root />,
+    children: [
+      {
+        path: '',
+        element: <HomePage />,
+      },
+      { path: 'about', element: <TodoDetailPage /> },
+    ],
+  },
+]);
+
+export default router;
