@@ -36,6 +36,13 @@
 - context에 내가 원하는 무엇이든 보낼 수 있다 (array, number, string ...)
 - Root에서 보내면 모든 페이지 컴포넌트에 보낼 수 있다. (ex. dark mode)
 
+## useSearchParams
+
+- searhParameter를 읽거나 수정할 수 있다
+- searchParamter란 검색하거나, 페이지네이션할 때 그 정보를 url 주소에 넣은 것
+- URLSearchParams는 자바스크립트에서 제공해주는 것
+- http://localhost:3000/?geo=123
+
 ## 주의
 
 - Link에 to 주소를 적을 때 '/'를 앞에 붙이면 root에서 붙인 주소로 이동한다
