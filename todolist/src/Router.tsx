@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import ErrorComponent from './components/ErrorComponent/ErrorComponent';
 import User from './pages/users/User/User';
+import Followers from './pages/users/Followers/Followers';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,16 @@ const router = createBrowserRouter([
        * users 뒤에 꼭 id가 있어야 하지만 그렇지 않은 경우 아래 방식으로..
        * users로만 접근하면 not Found 페이지로
        */
-      { path: 'users/:userId', element: <User /> },
+      {
+        path: 'users/:userId',
+        element: <User />,
+        children: [
+          {
+            path: 'followers',
+            element: <Followers />,
+          },
+        ],
+      },
     ],
     errorElement: <NotFoundPage />,
   },
