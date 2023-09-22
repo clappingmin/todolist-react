@@ -1,21 +1,36 @@
 import Root from './Root';
-import { createBrowserRouter } from 'react-router-dom';
-import TodoDetailPage from './pages/TodoDetailPage/TodoDetailPage';
-import HomePage from './pages/HomePage/HomePage';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import TodoDetailPage from './pages/todo/TodoDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import ErrorComponent from './components/ErrorComponent/ErrorComponent';
 import User from './pages/users/User/User';
 import Followers from './pages/users/Followers/Followers';
+import TodoPage from './pages/todo/TodoPage';
 
 const router = createBrowserRouter([
   {
     path: '/', // 부모
     element: <Root />,
     children: [
+      // /로 접근시 redirect
       {
         path: '',
-        element: <HomePage />,
+        element: <Navigate replace to="todo" />,
+      },
+      {
+        path: 'todo',
+        element: <TodoPage />,
         errorElement: <ErrorComponent />,
+        children: [
+          {
+            path: ':id',
+            element: <TodoDetailPage />,
+          },
+          {
+            path: 'add',
+            element: <TodoDetailPage />,
+          },
+        ],
       },
       { path: 'about', element: <TodoDetailPage /> },
       /**  users로 가서 뭔가를 볼수 있으면 children 방식으로 해야하지만
