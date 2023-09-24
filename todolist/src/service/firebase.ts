@@ -1,8 +1,8 @@
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '../shared/firebase/firebase';
 import { Todo, UserInputTodo } from '../shared/interfaces/todo.interface';
 
-export async function addTodo(inputTodo: UserInputTodo): Promise<boolean> {
+export async function addTodoFB(inputTodo: UserInputTodo): Promise<boolean> {
   try {
     const createdAt = new Date().toString();
     const newTodo: Todo = {
@@ -20,4 +20,16 @@ export async function addTodo(inputTodo: UserInputTodo): Promise<boolean> {
   } catch (e) {
     throw e;
   }
+}
+
+export async function getTodos() {
+  const todos: Array<Todo> = [];
+  const querySnapshot = await getDocs(collection(db, 'todo'));
+  querySnapshot.forEach((doc) => {
+    todos.push(doc.data() as Todo);
+  });
+
+  console.log('getTodos - ', todos);
+
+  return todos;
 }
