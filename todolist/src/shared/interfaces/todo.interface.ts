@@ -1,5 +1,6 @@
 export interface Tag {
   name: string;
+  // todo : color 추가하기
 }
 
 export interface UserInputTodo {

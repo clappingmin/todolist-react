@@ -6,6 +6,7 @@
 npm i @chakra-ui/icons
 npm i styled-reset // chakra UI 때문에 안해도 될 듯
 npm install firebase
+npm install jotai
 ```
 
 # 폴더 구조
@@ -19,5 +20,6 @@ npm install firebase
   - interfaces : 인터페이스 모아놓은 폴더
   - utils : 유틸리티 함수 모아놓은 폴더
   - hooks : 리액트 커스텀 훅 모아놓은 폴더
+- store : 상태 관리 모아놓은 폴더
 - syltes : 스타일 모아놓은 폴더
   - chakra : chakra 컴포넌트 별로 커스텀 셋팅 파일 모아놓은 폴더
