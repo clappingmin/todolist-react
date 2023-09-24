@@ -4,16 +4,16 @@ export interface Tag {
 
 export interface UserInputTodo {
   todo: string;
-  tag?: Tag[];
+  tags?: Tag[];
   memo?: string;
   isRepeated: boolean;
-  startDate?: Date;
-  endDate?: Date;
+  startDate?: string;
+  endDate?: string;
 }
 
 export interface Todo extends UserInputTodo {
-  // userId 후순위
+  // todo: userId 후순위
   isDone: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
