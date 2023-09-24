@@ -10,8 +10,9 @@ npm install firebase
 
 # 폴더 구조
 
-- components : 컴포넌트 모아놓은 폴더
-- pages : 페이지 모아놓은 폴더, 라우터로 구분함
+- components : 전역으로 사용할 컴포넌트 모아놓은 폴더
+- pages : 페이지 모아놓은 폴더, 라우터로 구분함,
+  라우터로 구분된 폴더 내에 components는 그 라우터에서만 사용할 컴포넌트만 모아놓음
 - service : 서버, 데이터와 관련된 것들을 모아놓은 폴더
 - shared : 공유하는 것들을 모아놓은 폴더
   - firebase : 파이어베이스 관련 파일 폴더
