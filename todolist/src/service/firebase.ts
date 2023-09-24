@@ -1,8 +1,14 @@
 import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
 import { db } from '../shared/firebase/firebase';
-import { Todo, UserInputTodo } from '../shared/interfaces/todo.interface';
+import {
+  AddTodoResult,
+  Todo,
+  UserInputTodo,
+} from '../shared/interfaces/todo.interface';
 
-export async function addTodoFB(inputTodo: UserInputTodo): Promise<boolean> {
+export async function addTodoFB(
+  inputTodo: UserInputTodo
+): Promise<AddTodoResult> {
   try {
     const createdAt = new Date().toString();
     const newTodo: Todo = {
@@ -14,9 +20,9 @@ export async function addTodoFB(inputTodo: UserInputTodo): Promise<boolean> {
     const docRef = await addDoc(collection(db, 'todo'), { ...newTodo });
     console.log('Document written with ID: ', docRef.id);
 
-    if (docRef.id) return true;
+    if (docRef.id) return { isSuccess: true, newTodo };
 
-    return false;
+    return { isSuccess: false };
   } catch (e) {
     throw e;
   }

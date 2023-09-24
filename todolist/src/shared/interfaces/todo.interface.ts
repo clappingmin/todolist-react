@@ -18,3 +18,8 @@ export interface Todo extends UserInputTodo {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface AddTodoResult {
+  isSuccess: boolean;
+  newTodo?: Todo;
+}

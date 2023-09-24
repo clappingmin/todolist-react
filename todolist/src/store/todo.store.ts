@@ -3,7 +3,7 @@ import { getTodos } from '../service/firebase';
 import { Todo, UserInputTodo } from '../shared/interfaces/todo.interface';
 
 // 정의
-export const todosAtom = atom<Array<Todo | UserInputTodo>>([]);
+export const todosAtom = atom<Array<Todo>>([]);
 
 // write only
 export const setFBTodosAtom = atom(null, (get, set) => {
@@ -12,7 +12,7 @@ export const setFBTodosAtom = atom(null, (get, set) => {
   });
 });
 
-export const addTodoAtom = atom(null, (get, set, newTodo: UserInputTodo) => {
+export const addTodoAtom = atom(null, (get, set, newTodo: Todo) => {
   set(todosAtom, [...get(todosAtom), newTodo]);
 });
 

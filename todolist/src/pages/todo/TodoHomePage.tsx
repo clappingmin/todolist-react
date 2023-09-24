@@ -16,13 +16,26 @@ function TodoHomePage() {
     setReadyToRender(true);
   }, []);
 
+  const checkboxChangeHandler = () => {
+    /**
+     * Todo : FB에 저장할 때 set으로 해서 id 지정하기
+     * Todo : 그 id로 update
+     */
+  };
+
   return (
     <Wrapper className={!readyToRender ? 'isRendering' : ''}>
       {readyToRender ? (
         todos.map((todo, index) => {
           return (
             <TodoBox key={index}>
-              <Checkbox colorScheme="red" defaultChecked>
+              <Checkbox
+                colorScheme="red"
+                isChecked={todo.isDone}
+                onChange={() => {
+                  checkboxChangeHandler();
+                }}
+              >
                 {todo.todo}
               </Checkbox>
             </TodoBox>

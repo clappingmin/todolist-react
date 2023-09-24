@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Tag } from '../../shared/interfaces/todo.interface';
+import { Tag, Todo } from '../../shared/interfaces/todo.interface';
 import { addTodoFB } from '../../service/firebase';
 import { useAtom } from 'jotai';
 import { addTodoAtom } from '../../store/todo.store';
@@ -47,9 +47,9 @@ function TodoAddPage() {
     // todo : todo가 비어있을 경우 막기
     const newTodo = { todo, memo, tags, isRepeated, startDate, endDate };
     addTodoFB(newTodo)
-      .then((isSuccess) => {
-        if (isSuccess) {
-          addTodo(newTodo);
+      .then((result) => {
+        if (result.isSuccess) {
+          addTodo(result.newTodo as Todo);
 
           navigate('/todo');
           return;
