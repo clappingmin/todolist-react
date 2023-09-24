@@ -6,6 +6,8 @@ import ErrorComponent from './components/ErrorComponent/ErrorComponent';
 import User from './pages/users/User/User';
 import Followers from './pages/users/Followers/Followers';
 import TodoPage from './pages/todo/TodoPage';
+import TodoAddPage from './pages/todo/TodoAddPage';
+import TodoHomePage from './pages/todo/TodoHomePage';
 
 const router = createBrowserRouter([
   {
@@ -23,11 +25,15 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
         children: [
           {
-            path: ':id',
-            element: <TodoDetailPage />,
+            path: '',
+            element: <TodoHomePage />,
           },
           {
             path: 'add',
+            element: <TodoAddPage />,
+          },
+          {
+            path: ':id',
             element: <TodoDetailPage />,
           },
         ],

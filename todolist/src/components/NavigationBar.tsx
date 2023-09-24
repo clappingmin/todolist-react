@@ -1,9 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 function NavigationBar() {
+  const navigate = useNavigate();
   return (
     <Wrapper>
-      <NaviBtn>
+      <NaviBtn
+        onClick={() => {
+          navigate('/todo');
+        }}
+      >
         <span className="material-icons">home</span>
         <p>Home</p>
       </NaviBtn>
@@ -11,7 +17,11 @@ function NavigationBar() {
         <span className="material-icons">calendar_month</span>
         <p>Calendar</p>
       </NaviBtn>
-      <AddBtn>
+      <AddBtn
+        onClick={() => {
+          navigate('/todo/add');
+        }}
+      >
         <span className="material-icons">add</span>
       </AddBtn>
       <NaviBtn>
