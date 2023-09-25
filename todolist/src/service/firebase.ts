@@ -6,6 +6,7 @@ import {
   doc,
   orderBy,
   query,
+  getDoc,
 } from 'firebase/firestore';
 import { db } from '../shared/firebase/firebase';
 import {
@@ -14,6 +15,11 @@ import {
   UserInputTodo,
 } from '../shared/interfaces/todo.interface';
 
+/**
+ * 투두 추가하기
+ * @param {UserInputTodo} inputTodo
+ * @returns {Promise<AddTodoResult>}
+ */
 export async function addTodoFB(
   inputTodo: UserInputTodo
 ): Promise<AddTodoResult> {
@@ -40,7 +46,11 @@ export async function addTodoFB(
   }
 }
 
-export async function getTodosFB() {
+/**
+ * 투두 전체 가져오기
+ * @returns {Promise<Array<Todo>>}
+ */
+export async function getTodosFB(): Promise<Array<Todo>> {
   const todos: Array<Todo> = [];
   const orderdTodosQuery = await query(
     collection(db, 'todo'),
@@ -58,6 +68,24 @@ export async function getTodosFB() {
   return todos;
 }
 
-export async function updateTodoFB(target: Todo) {
+/**
+ * 투두 수정하기
+ * @param {Todo} target
+ * @requires {Promise<void>}
+ */
+export async function updateTodoFB(target: Todo): Promise<void> {
   await setDoc(doc(db, 'todo', String(target.id)), target);
+}
+
+/**
+ * 특정 투두 가져오기
+ * @param {string} todoId
+ */
+export async function getTodoFB(todoId?: string): Promise<Todo | null> {
+  const docRef = doc(db, 'todo', String(todoId));
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) return docSnap.data() as Todo;
+
+  return null;
 }

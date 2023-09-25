@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { Checkbox, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { updateTodoFB } from '../../service/firebase';
 import { Todo } from '../../shared/interfaces/todo.interface';
-import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { todosAtom, setFBTodosAtom, updateTodoAtom } from '../../store/todo';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,34 +26,26 @@ function TodoHomePage() {
     } catch (e) {}
   };
 
-  const goToDetail = (event: React.MouseEvent<Element>) => {
-    event.stopPropagation();
-    const eventTarget = event.target as HTMLElement;
-
-    if (eventTarget.id.includes('checkbox')) return;
-
-    const targetId = eventTarget.dataset.id;
-
-    // navigate(`/todo/${targetId}`);
+  const goToDetail = (todo: Todo) => {
+    navigate(`${todo.id}`);
   };
 
   return (
     <Wrapper className={!readyToRender ? 'isRendering' : ''}>
       {readyToRender ? (
-        todos.map((todo, index) => {
+        todos.map((todo) => {
           return (
             <TodoBox
               key={todo.id}
               onClick={(event) => {
-                goToDetail(event);
+                goToDetail(todo);
               }}
               data-id={todo.id}
             >
               <Checkbox
-                id={`checkbox-${todo.id}`}
                 colorScheme="red"
                 isChecked={todo.isDone}
-                onChange={(event) => {
+                onChange={() => {
                   checkboxChangeHandler(todo);
                 }}
               />
