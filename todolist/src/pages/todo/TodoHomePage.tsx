@@ -16,7 +16,7 @@ function TodoHomePage() {
     setReadyToRender(true);
   }, []);
 
-  const checkboxChangeHandler = () => {
+  const checkboxChangeHandler = (todo: Todo) => {
     /**
      * Todo : FB에 저장할 때 set으로 해서 id 지정하기
      * Todo : 그 id로 update
@@ -33,7 +33,7 @@ function TodoHomePage() {
                 colorScheme="red"
                 isChecked={todo.isDone}
                 onChange={() => {
-                  checkboxChangeHandler();
+                  checkboxChangeHandler(todo);
                 }}
               >
                 {todo.todo}

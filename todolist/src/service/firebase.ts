@@ -1,4 +1,12 @@
-import { collection, addDoc, getDocs, setDoc, doc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  getDocs,
+  setDoc,
+  doc,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import { db } from '../shared/firebase/firebase';
 import {
   AddTodoResult,
@@ -16,11 +24,15 @@ export async function addTodoFB(
       isDone: false,
       createdAt,
       updatedAt: createdAt,
+      id: -1,
     };
     const docRef = await addDoc(collection(db, 'todo'), { ...newTodo });
-    console.log('Document written with ID: ', docRef.id);
 
-    if (docRef.id) return { isSuccess: true, newTodo };
+    if (docRef.id) {
+      await setDoc(docRef, { id: docRef.id }, { merge: true });
+      newTodo.id = docRef.id;
+      return { isSuccess: true, newTodo };
+    }
 
     return { isSuccess: false };
   } catch (e) {
@@ -30,7 +42,13 @@ export async function addTodoFB(
 
 export async function getTodos() {
   const todos: Array<Todo> = [];
-  const querySnapshot = await getDocs(collection(db, 'todo'));
+  const orderdTodosQuery = await query(
+    collection(db, 'todo'),
+    orderBy('order', 'asc')
+  );
+
+  const querySnapshot = await getDocs(orderdTodosQuery);
+
   querySnapshot.forEach((doc) => {
     todos.push(doc.data() as Todo);
   });

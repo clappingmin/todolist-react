@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { Tag, Todo } from '../../shared/interfaces/todo.interface';
 import { addTodoFB } from '../../service/firebase';
 import { useAtom } from 'jotai';
-import { addTodoAtom } from '../../store/todo.store';
+import { addTodoAtom, todosLenAtom } from '../../store/todo.store';
 
 function TodoAddPage() {
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ function TodoAddPage() {
   const [endDate, setEndDate] = useState<string>('');
 
   const [, addTodo] = useAtom(addTodoAtom);
+  const [todosLen] = useAtom(todosLenAtom);
 
   const changeIsReapeated = (event: any) => {
     setIsRepeated(event.target.checked);
@@ -45,7 +46,16 @@ function TodoAddPage() {
 
   const addTag = () => {
     // todo : todo가 비어있을 경우 막기
-    const newTodo = { todo, memo, tags, isRepeated, startDate, endDate };
+    const newTodo = {
+      todo,
+      memo,
+      tags,
+      isRepeated,
+      startDate,
+      endDate,
+      order: todosLen + 1,
+    };
+
     addTodoFB(newTodo)
       .then((result) => {
         if (result.isSuccess) {
