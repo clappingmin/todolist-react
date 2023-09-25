@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { Tag, Todo } from '../../shared/interfaces/todo.interface';
 import { addTodoFB } from '../../service/firebase';
 import { useAtom } from 'jotai';
-import { addTodoAtom, todosLenAtom } from '../../store/todo.store';
+import { addTodoAtom, todosLenAtom } from '../../store/todo';
 
 function TodoAddPage() {
   const navigate = useNavigate();

@@ -1,22 +1,37 @@
 import { atom } from 'jotai';
-import { getTodosFB } from '../service/firebase';
+import { getTodosFB, updateTodoFB } from '../service/firebase';
 import { Todo } from '../shared/interfaces/todo.interface';
 
 // 정의
 export const todosAtom = atom<Array<Todo>>([]);
 
-// read only
+// 파생된 atom - todos의 길이
 export const todosLenAtom = atom((get) => get(todosAtom).length);
 
-// write only
+// 서버에서 전체 todo 가져오기
 export const setFBTodosAtom = atom(null, (get, set) => {
-  getTodosFB().then((todos: any) => {
-    set(todosAtom, todos);
-  });
+  if (!get(todosLenAtom)) {
+    getTodosFB().then((todos: any) => {
+      set(todosAtom, todos);
+    });
+  }
 });
 
+// 추가하기
 export const addTodoAtom = atom(null, (get, set, newTodo: Todo) => {
   set(todosAtom, [...get(todosAtom), newTodo]);
+});
+
+// 수정하기
+export const updateTodoAtom = atom(null, (get, set, updateTodo: Todo) => {
+  const updatedtodos = get(todosAtom).map((todo) => {
+    if (todo.id === updateTodo.id) return updateTodo;
+    return todo;
+  });
+
+  updateTodoFB(updateTodo);
+
+  set(todosAtom, updatedtodos);
 });
 
 /**

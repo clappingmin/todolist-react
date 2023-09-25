@@ -1,40 +1,41 @@
 import styled from 'styled-components';
 import { Checkbox, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { getTodosFB, updateTodoFB } from '../../service/firebase';
+import { updateTodoFB } from '../../service/firebase';
 import { Todo } from '../../shared/interfaces/todo.interface';
-import { useAtom } from 'jotai';
-import { todosAtom } from '../../store/todo.store';
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { todosAtom, setFBTodosAtom, updateTodoAtom } from '../../store/todo';
+import { useNavigate } from 'react-router-dom';
 
 function TodoHomePage() {
+  const navigate = useNavigate();
+
   const [readyToRender, setReadyToRender] = useState<boolean>(false);
-  const [todos, setTodos] = useAtom(todosAtom);
+  const todos = useAtomValue(todosAtom);
+  const setTodosFB = useSetAtom(setFBTodosAtom);
+  const updateTodos = useSetAtom(updateTodoAtom);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const newTodos = await getTodosFB();
-        setTodos(newTodos);
-        setReadyToRender(true);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
+    setTodosFB();
+    setReadyToRender(true);
   }, []);
 
   const checkboxChangeHandler = (target: Todo) => {
     try {
-      const updatedTodos = todos.map((todo, index) => {
-        if (todo.id === target.id) return { ...todo, isDone: !todo.isDone };
-
-        return todo;
-      });
-
-      updateTodoFB({ ...target, isDone: !target.isDone });
-
-      setTodos(updatedTodos);
+      const updatedTodo = { ...target, isDone: !target.isDone };
+      updateTodos(updatedTodo);
     } catch (e) {}
+  };
+
+  const goToDetail = (event: React.MouseEvent<Element>) => {
+    event.stopPropagation();
+    const eventTarget = event.target as HTMLElement;
+
+    if (eventTarget.id.includes('checkbox')) return;
+
+    const targetId = eventTarget.dataset.id;
+
+    // navigate(`/todo/${targetId}`);
   };
 
   return (
@@ -42,16 +43,22 @@ function TodoHomePage() {
       {readyToRender ? (
         todos.map((todo, index) => {
           return (
-            <TodoBox key={index}>
+            <TodoBox
+              key={todo.id}
+              onClick={(event) => {
+                goToDetail(event);
+              }}
+              data-id={todo.id}
+            >
               <Checkbox
+                id={`checkbox-${todo.id}`}
                 colorScheme="red"
                 isChecked={todo.isDone}
-                onChange={() => {
+                onChange={(event) => {
                   checkboxChangeHandler(todo);
                 }}
-              >
-                {todo.todo}
-              </Checkbox>
+              />
+              {todo.todo}
             </TodoBox>
           );
         })
@@ -84,6 +91,9 @@ const TodoBox = styled.div`
   border: 1px solid #242424;
   background: #fff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
   &:hover {
     filter: brightness(0.95);
