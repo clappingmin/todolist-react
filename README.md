@@ -1,6 +1,6 @@
 # todolist-react
 
-# 환경설정
+# 1. 환경설정
 
 ```
 npm i @chakra-ui/icons
@@ -9,7 +9,7 @@ npm install firebase
 npm install jotai
 ```
 
-# 폴더 구조
+# 2. 폴더 구조
 
 - components : 전역으로 사용할 컴포넌트 모아놓은 폴더
 - pages : 페이지 모아놓은 폴더, 라우터로 구분함,
@@ -23,3 +23,14 @@ npm install jotai
 - store : 상태 관리 모아놓은 폴더
 - syltes : 스타일 모아놓은 폴더
   - chakra : chakra 컴포넌트 별로 커스텀 셋팅 파일 모아놓은 폴더
+
+# 3. Commit Message Convention
+
+- feat : 새로운 기능에 대한 커밋
+- fix : 버그 수정에 대한 커밋
+- build : 빌드 관련 파일 수정에 대한 커밋
+- chore : 그 외 자잘한 수정에 대한 커밋
+- ci : CI관련 설정 수정에 대한 커밋
+- docs : 문서 수정에 대한 커밋
+- style : 코드 스타일 혹은 포맷 등에 관한 커밋
+- refactor : 코드 리팩토링에 대한 커밋
