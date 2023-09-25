@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Checkbox, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { getTodos } from '../../service/firebase';
+import { getTodosFB, updateTodoFB } from '../../service/firebase';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { useAtom } from 'jotai';
 import { todosAtom } from '../../store/todo.store';
@@ -11,16 +11,30 @@ function TodoHomePage() {
   const [todos, setTodos] = useAtom(todosAtom);
 
   useEffect(() => {
-    getTodos().then((todos: Array<Todo>) => setTodos(todos));
-
-    setReadyToRender(true);
+    const fetchData = async () => {
+      try {
+        const newTodos = await getTodosFB();
+        setTodos(newTodos);
+        setReadyToRender(true);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
   }, []);
 
-  const checkboxChangeHandler = (todo: Todo) => {
-    /**
-     * Todo : FB에 저장할 때 set으로 해서 id 지정하기
-     * Todo : 그 id로 update
-     */
+  const checkboxChangeHandler = (target: Todo) => {
+    try {
+      const updatedTodos = todos.map((todo, index) => {
+        if (todo.id === target.id) return { ...todo, isDone: !todo.isDone };
+
+        return todo;
+      });
+
+      updateTodoFB({ ...target, isDone: !target.isDone });
+
+      setTodos(updatedTodos);
+    } catch (e) {}
   };
 
   return (

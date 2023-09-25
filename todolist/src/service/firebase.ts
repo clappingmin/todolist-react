@@ -40,7 +40,7 @@ export async function addTodoFB(
   }
 }
 
-export async function getTodos() {
+export async function getTodosFB() {
   const todos: Array<Todo> = [];
   const orderdTodosQuery = await query(
     collection(db, 'todo'),
@@ -56,4 +56,8 @@ export async function getTodos() {
   console.log('getTodos - ', todos);
 
   return todos;
+}
+
+export async function updateTodoFB(target: Todo) {
+  await setDoc(doc(db, 'todo', String(target.id)), target);
 }

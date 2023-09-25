@@ -1,5 +1,5 @@
 import { atom } from 'jotai';
-import { getTodos } from '../service/firebase';
+import { getTodosFB } from '../service/firebase';
 import { Todo } from '../shared/interfaces/todo.interface';
 
 // 정의
@@ -10,7 +10,7 @@ export const todosLenAtom = atom((get) => get(todosAtom).length);
 
 // write only
 export const setFBTodosAtom = atom(null, (get, set) => {
-  getTodos().then((todos: any) => {
+  getTodosFB().then((todos: any) => {
     set(todosAtom, todos);
   });
 });
