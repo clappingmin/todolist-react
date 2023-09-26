@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Spinner } from '@chakra-ui/react';
-import { findTodo } from '../../store/todo';
+import { findTodo } from '../../store/todo.store';
 import { useEffect, useMemo } from 'react';
 
 function TodoDetailPage() {

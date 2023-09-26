@@ -3,7 +3,11 @@ import { Checkbox, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { todosAtom, setFBTodosAtom, updateTodoAtom } from '../../store/todo';
+import {
+  todosAtom,
+  setFBTodosAtom,
+  updateTodoAtom,
+} from '../../store/todo.store';
 import { useNavigate } from 'react-router-dom';
 
 function TodoHomePage() {
