@@ -1,13 +1,15 @@
-import Root from './Root';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import TodoDetailPage from './pages/todo/TodoDetailPage';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import Root from './Root';
 import ErrorComponent from './components/ErrorComponent/ErrorComponent';
-import User from './pages/users/User/User';
-import Followers from './pages/users/Followers/Followers';
-import TodoPage from './pages/todo/TodoPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import { TestPage } from './pages/todo/TestPage';
+import { TestPage2 } from "./pages/todo/TestPage2";
 import TodoAddPage from './pages/todo/TodoAddPage';
+import TodoDetailPage from './pages/todo/TodoDetailPage';
 import TodoHomePage from './pages/todo/TodoHomePage';
+import TodoPage from './pages/todo/TodoPage';
+import Followers from './pages/users/Followers/Followers';
+import User from './pages/users/User/User';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
             element: <TodoDetailPage />,
           },
         ],
+      },
+      {
+        path: 'test',
+        element: <TestPage />,
+      },
+      {
+        path: 'test2',
+        element: <TestPage2 />,
       },
       { path: 'about', element: <TodoDetailPage /> },
       /**  users로 가서 뭔가를 볼수 있으면 children 방식으로 해야하지만
