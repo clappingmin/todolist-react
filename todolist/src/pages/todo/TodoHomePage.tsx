@@ -1,43 +1,55 @@
 import styled from 'styled-components';
 import { Checkbox, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { getTodos } from '../../service/firebase';
 import { Todo } from '../../shared/interfaces/todo.interface';
-import { useAtom } from 'jotai';
-import { todosAtom } from '../../store/todo.store';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { todosAtom, setFBTodosAtom, updateTodoAtom } from '../../store/todo';
+import { useNavigate } from 'react-router-dom';
 
 function TodoHomePage() {
+  const navigate = useNavigate();
+
   const [readyToRender, setReadyToRender] = useState<boolean>(false);
-  const [todos, setTodos] = useAtom(todosAtom);
+  const todos = useAtomValue(todosAtom);
+  const setTodosFB = useSetAtom(setFBTodosAtom);
+  const updateTodos = useSetAtom(updateTodoAtom);
 
   useEffect(() => {
-    getTodos().then((todos: Array<Todo>) => setTodos(todos));
-
+    setTodosFB();
     setReadyToRender(true);
   }, []);
 
-  const checkboxChangeHandler = () => {
-    /**
-     * Todo : FB에 저장할 때 set으로 해서 id 지정하기
-     * Todo : 그 id로 update
-     */
+  const checkboxChangeHandler = (target: Todo) => {
+    try {
+      const updatedTodo = { ...target, isDone: !target.isDone };
+      updateTodos(updatedTodo);
+    } catch (e) {}
+  };
+
+  const goToDetail = (todo: Todo) => {
+    navigate(`${todo.id}`);
   };
 
   return (
     <Wrapper className={!readyToRender ? 'isRendering' : ''}>
       {readyToRender ? (
-        todos.map((todo, index) => {
+        todos.map((todo) => {
           return (
-            <TodoBox key={index}>
+            <TodoBox
+              key={todo.id}
+              onClick={(event) => {
+                goToDetail(todo);
+              }}
+              data-id={todo.id}
+            >
               <Checkbox
                 colorScheme="red"
                 isChecked={todo.isDone}
                 onChange={() => {
-                  checkboxChangeHandler();
+                  checkboxChangeHandler(todo);
                 }}
-              >
-                {todo.todo}
-              </Checkbox>
+              />
+              {todo.todo}
             </TodoBox>
           );
         })
@@ -70,6 +82,9 @@ const TodoBox = styled.div`
   border: 1px solid #242424;
   background: #fff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 
   &:hover {
     filter: brightness(0.95);

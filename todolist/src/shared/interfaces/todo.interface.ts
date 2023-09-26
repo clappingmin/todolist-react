@@ -10,6 +10,7 @@ export interface UserInputTodo {
   isRepeated: boolean;
   startDate?: string;
   endDate?: string;
+  order: number;
 }
 
 export interface Todo extends UserInputTodo {
@@ -17,6 +18,7 @@ export interface Todo extends UserInputTodo {
   isDone: boolean;
   createdAt: string;
   updatedAt: string;
+  id: string | -1;
 }
 
 export interface AddTodoResult {

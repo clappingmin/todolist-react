@@ -13,8 +13,6 @@ root.render(
   <ChakraProvider theme={theme}>
     {/* todo: colorMode가 지정이 안된다 ㅠㅠ */}
     <ColorModeScript initialColorMode="dark" />
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
+    <RouterProvider router={router} />
   </ChakraProvider>
 );
