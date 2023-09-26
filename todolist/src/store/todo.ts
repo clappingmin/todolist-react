@@ -1,4 +1,4 @@
-import { atom } from 'jotai';
+import { atom, useAtom, useSetAtom } from 'jotai';
 import { getTodosFB, updateTodoFB } from '../service/firebase';
 import { Todo } from '../shared/interfaces/todo.interface';
 
@@ -7,6 +7,13 @@ export const todosAtom = atom<Array<Todo>>([]);
 
 // 파생된 atom - todos의 길이
 export const todosLenAtom = atom((get) => get(todosAtom).length);
+
+// 원하는 투두 하나 찾기
+export const findTodo = (todoId: string) => {
+  useSetAtom(setFBTodosAtom)();
+
+  return useAtom(todosAtom)[0].find((todo) => todo.id === todoId);
+};
 
 // 서버에서 전체 todo 가져오기
 export const setFBTodosAtom = atom(null, async (get, set) => {
