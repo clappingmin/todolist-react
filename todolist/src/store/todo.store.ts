@@ -1,6 +1,13 @@
 import { atom, useAtom, useSetAtom } from 'jotai';
-import { getTodosFB, updateTodoFB } from '../service/firebase';
+import {
+  addTodoFB,
+  deleteTodoFB,
+  getTodosFB,
+  updateTodoFB,
+} from '../service/firebase';
 import { Todo } from '../shared/interfaces/todo.interface';
+import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 // 정의
 export const todosAtom = atom<Array<Todo>>([]);
@@ -9,7 +16,7 @@ export const todosAtom = atom<Array<Todo>>([]);
 export const todosLenAtom = atom((get) => get(todosAtom).length);
 
 // 원하는 투두 하나 찾기
-export const findTodo = (todoId: string) => {
+export const useFindTodo = (todoId: string) => {
   useSetAtom(setFBTodosAtom)();
 
   return useAtom(todosAtom)[0].find((todo) => todo.id === todoId);
@@ -24,8 +31,12 @@ export const setFBTodosAtom = atom(null, async (get, set) => {
 });
 
 // 추가하기
-export const addTodoAtom = atom(null, (get, set, newTodo: Todo) => {
-  set(todosAtom, [...get(todosAtom), newTodo]);
+export const addTodoAtom = atom(null, async (get, set, newTodo: Todo) => {
+  if (await addTodoFB(newTodo)) {
+    set(todosAtom, [...get(todosAtom), newTodo]);
+    return true;
+  }
+  return false;
 });
 
 // 수정하기
@@ -38,4 +49,11 @@ export const updateTodoAtom = atom(null, (get, set, updateTodo: Todo) => {
   updateTodoFB(updateTodo);
 
   set(todosAtom, updatedtodos);
+});
+
+export const deleteTodoAtom = atom(null, (get, set, todoId: string) => {
+  deleteTodoFB(todoId);
+
+  const filterdTodos = get(todosAtom).filter((todo) => todo.id !== todoId);
+  set(todosAtom, filterdTodos);
 });

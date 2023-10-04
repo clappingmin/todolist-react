@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   getDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { db } from '../shared/firebase/firebase';
 import {
@@ -88,4 +89,8 @@ export async function getTodoFB(todoId?: string): Promise<Todo | null> {
   if (docSnap.exists()) return docSnap.data() as Todo;
 
   return null;
+}
+
+export async function deleteTodoFB(todoId: string) {
+  await deleteDoc(doc(db, 'todo', todoId));
 }

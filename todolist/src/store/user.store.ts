@@ -1,7 +1,7 @@
-import { QueryStatus } from "@tanstack/query-core";
-import { atom, useAtom } from "jotai";
-import { atomsWithQuery } from "jotai-tanstack-query";
-import { useEffect, useState } from "react";
+import { QueryStatus } from '@tanstack/query-core';
+import { atom, useAtom } from 'jotai';
+import { atomsWithQuery } from 'jotai-tanstack-query';
+import { useEffect, useState } from 'react';
 
 // ************************************************
 // atomsWithQuery(GET) / atomsWithMutation(POST)
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // 캐시 타이밍 - 캐시만료시기 / 서버요청시기 - 포커스가 브라우저로갔을때, 컴포넌트가 mount됐을때
 // 캐시=>저장소 =>> 서버요청+저장소
 const [,] = atomsWithQuery<Record<string, any>[]>((get) => ({
-  queryKey: ["users"], // get(idAtom)],
+  queryKey: ['users'], // get(idAtom)],
   queryFn: async () => {
     // 일부러 성공하기!
     const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
@@ -24,7 +24,7 @@ const [,] = atomsWithQuery<Record<string, any>[]>((get) => ({
 // ************************************************
 // 유저리스트 아톰
 const [, userListAtom] = atomsWithQuery<Record<string, any>[]>((get) => ({
-  queryKey: ["users"], //get(idAtom)],
+  queryKey: ['users'], //get(idAtom)],
   queryFn: async () => {
     // // 일부러 시간끌기!
     // await new Promise((f) => setTimeout(f, 10000));
@@ -55,16 +55,16 @@ export const useUserItemFromList = (
     data?: Record<string, any>;
     status: QueryStatus;
     error?: any;
-  }>({ status: "loading" });
+  }>({ status: 'loading' });
 
   useEffect(() => {
     let data: Record<string, any> | undefined;
     let error: any;
-    if (userListStatus.status === "success") {
+    if (userListStatus.status === 'success') {
       data = userListStatus.data.find((i) => i.id === id);
     }
-    if (userListStatus.status === "error") {
-      error = (userListStatus.failureReason as Error)?.message ?? "unknown";
+    if (userListStatus.status === 'error') {
+      error = (userListStatus.failureReason as Error)?.message ?? 'unknown';
     }
     console.log(
       `from list : ${JSON.stringify({
@@ -84,7 +84,7 @@ export const useUserItemFromList = (
 const idAtom = atom<number>(5);
 // 유저 디테일 정보 저장 관리 아톰
 const [, userDetailAtom] = atomsWithQuery<Record<string, any>[]>((get) => ({
-  queryKey: ["users", get(idAtom)],
+  queryKey: ['users', get(idAtom)],
   queryFn: async () => {
     // 일부러 성공하기!
     const res = await fetch(
@@ -107,19 +107,19 @@ export const useUserItemFromServer = (): {
     data?: Record<string, any>;
     status: QueryStatus;
     error?: any;
-  }>({ status: "loading" });
+  }>({ status: 'loading' });
 
   useEffect(() => {
     let data: Record<string, any> | undefined;
     let error: any;
-    if (userDetailStatus.status === "success") {
+    if (userDetailStatus.status === 'success') {
       data = userDetailStatus.data;
     }
-    if (userDetailStatus.status === "error") {
+    if (userDetailStatus.status === 'error') {
       error = userDetailStatus.failureReason;
     }
     console.log(
-      `from server : ${JSON.stringify({
+      `야호 from server : ${JSON.stringify({
         data: data,
         status: userDetailStatus.status,
         error: error,

@@ -44,7 +44,7 @@ function TodoAddPage() {
     setTags([...tags, newTag]);
   };
 
-  const addTag = () => {
+  const addTag = async () => {
     // todo : todo가 비어있을 경우 막기
     const newTodo = {
       todo,
@@ -56,21 +56,7 @@ function TodoAddPage() {
       order: todosLen + 1,
     };
 
-    addTodoFB(newTodo)
-      .then((result) => {
-        if (result.isSuccess) {
-          addTodo(result.newTodo as Todo);
-
-          navigate('/todo');
-          return;
-        }
-
-        // todo : 투두 추가 실패 알럿 띄우기
-      })
-      .catch((e) => {
-        // todo : 투두 추가 실패 알럿 띄우기
-        console.log(e);
-      });
+    if (await addTodo(newTodo as Todo)) navigate('/todo');
   };
 
   const cancelHandler = () => {
