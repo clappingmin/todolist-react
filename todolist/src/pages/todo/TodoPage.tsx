@@ -4,8 +4,8 @@ import { Outlet } from 'react-router-dom';
 
 function TodoPage() {
   return (
+    // store 범위 지정
     <Provider>
-      <Heading>ToDo 페이지</Heading>
       <Outlet />
     </Provider>
   );

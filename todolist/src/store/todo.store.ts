@@ -6,8 +6,6 @@ import {
   updateTodoFB,
 } from '../service/firebase';
 import { Todo } from '../shared/interfaces/todo.interface';
-import { useNavigate } from 'react-router-dom';
-import { useCallback } from 'react';
 
 // 정의
 export const todosAtom = atom<Array<Todo>>([]);

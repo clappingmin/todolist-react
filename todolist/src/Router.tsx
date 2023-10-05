@@ -3,7 +3,6 @@ import Root from './Root';
 import ErrorComponent from './components/ErrorComponent/ErrorComponent';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { TestPage } from './pages/todo/TestPage';
-import { TestPage2 } from "./pages/todo/TestPage2";
 import TodoAddPage from './pages/todo/TodoAddPage';
 import TodoDetailPage from './pages/todo/TodoDetailPage';
 import TodoHomePage from './pages/todo/TodoHomePage';
@@ -43,10 +42,6 @@ const router = createBrowserRouter([
       {
         path: 'test',
         element: <TestPage />,
-      },
-      {
-        path: 'test2',
-        element: <TestPage2 />,
       },
       { path: 'about', element: <TodoDetailPage /> },
       /**  users로 가서 뭔가를 볼수 있으면 children 방식으로 해야하지만

@@ -7,6 +7,7 @@ npm i @chakra-ui/icons
 npm i styled-reset // chakra UI 때문에 안해도 될 듯
 npm install firebase
 npm install jotai
+npm install framer-motion
 ```
 
 # 2. 폴더 구조
@@ -34,3 +35,18 @@ npm install jotai
 - docs : 문서 수정에 대한 커밋
 - style : 코드 스타일 혹은 포맷 등에 관한 커밋
 - refactor : 코드 리팩토링에 대한 커밋
+
+# 4. style
+
+- 전역 스타일은 styles/global.scss에 작성
+- chakra ui 스타일은 컴포넌트 별로 각 파일에 작성
+- css module 사용 (스타일 클래스 충돌 방지)
+- 스타일 네이밍 규칙은 카멜 케이스 사용 (camelCase)
+- 스타일 파일을 생성할 때는 사용할 컴포넌트와 이름을 통일 (ex. A.tsx -> A.module.scss)
+- 글로벌 파일과 chakra ui 파일을 제외한 스타일 파일은 적용할 컴포넌트와 같은 위치에 생성
+
+- global style과 모듈화 된 스타일 함께 사용하는 방법
+
+```javascript
+      <div className={`${styles.toonTitle} text-overflow-2`}>
+```

@@ -18,10 +18,10 @@ function TodoDetailPage() {
   return (
     <div>
       {todo ? (
-        <>
+        <div className="top-wrapper">
           <div>{todo.id}</div>
           <button onClick={deleteBtnHandler}>삭제</button>
-        </>
+        </div>
       ) : (
         <div>없음</div>
       )}

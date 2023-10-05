@@ -1,23 +1,19 @@
-import './Root.scss';
+import styles from './Root.module.scss';
 import { Outlet } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
-import styled from 'styled-components';
+import './styles/global.scss';
 
 function Root() {
   return (
-    <div className="wrapper">
-      <div className="phone-wrapper">
-        <Container>
+    <div className={styles.wrapper}>
+      <div className={styles.phone}>
+        <div className={styles.container}>
           <Outlet />
-        </Container>
+        </div>
         <NavigationBar />
       </div>
     </div>
   );
 }
-
-const Container = styled.div`
-  height: 100%;
-`;
 
 export default Root;

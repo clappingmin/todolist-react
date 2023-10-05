@@ -1,0 +1,44 @@
+.wrapperNormal {
+  flex: 1;
+  min-width: 0;
+
+  .webtoonImage {
+    width: 100%;
+    aspect-ratio: 6/10;
+    border-radius: 4px;
+  }
+
+  .genre {
+    margin-top: 8px;
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: 400;
+    color: #969696;
+  }
+
+  .toonTitle {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #242424;
+  }
+}
+
+.wrapperSubscribe {
+  flex: 1 0 auto;
+  min-width: 0;
+  max-width: 140px;
+
+  .webtoonImage {
+    width: 100%;
+    aspect-ratio: 2/1;
+    border-radius: 4px;
+  }
+
+  .toonTitle {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #242424;
+  }
+}
