@@ -1,15 +1,22 @@
 import { modalAnatomy as parts } from '@chakra-ui/anatomy';
 import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system';
+import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys);
+
+// alert Modal 기본 사이즈
+const xs = defineStyle({
+  dialog: {
+    w: '300px',
+  },
+});
 
 const baseStyle = definePartsStyle({
   overlay: {
     bg: 'blackAlpha.200',
   },
   dialog: {
-    w: '300px',
     borderRadius: '10px',
     fontSize: '16px',
     fontWeight: 400,
@@ -54,4 +61,10 @@ const baseStyle = definePartsStyle({
 
 export const modalTheme = defineMultiStyleConfig({
   baseStyle,
+  sizes: {
+    xs: xs,
+  },
+  defaultProps: {
+    size: 'xs',
+  },
 });
