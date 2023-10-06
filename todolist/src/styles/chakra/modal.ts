@@ -5,6 +5,9 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(parts.keys);
 
 const baseStyle = definePartsStyle({
+  overlay: {
+    bg: 'blackAlpha.200',
+  },
   dialog: {
     w: '300px',
     borderRadius: '10px',
@@ -45,13 +48,6 @@ const baseStyle = definePartsStyle({
   },
 });
 
-const withOverlay = definePartsStyle({
-  overlay: {
-    bg: 'blackAlpha.200',
-  },
-});
-
 export const modalTheme = defineMultiStyleConfig({
   baseStyle,
-  variants: { withOverlay },
 });
