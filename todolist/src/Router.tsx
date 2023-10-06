@@ -9,6 +9,7 @@ import TodoHomePage from './pages/todo/TodoHomePage';
 import TodoPage from './pages/todo/TodoPage';
 import Followers from './pages/users/Followers/Followers';
 import User from './pages/users/User/User';
+import AnimationTest from './pages/todo/AnimationTest';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             element: <Followers />,
           },
         ],
+      },
+      {
+        path: 'animation',
+        element: <AnimationTest />,
       },
     ],
     errorElement: <NotFoundPage />,
