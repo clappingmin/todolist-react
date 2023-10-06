@@ -11,6 +11,10 @@ const baseStyle = definePartsStyle({
   dialog: {
     w: '300px',
     borderRadius: '10px',
+    fontSize: '16px',
+    fontWeight: 400,
+    lineHeight: '24px',
+    color: '#242424',
   },
   header: {
     px: '16px',
