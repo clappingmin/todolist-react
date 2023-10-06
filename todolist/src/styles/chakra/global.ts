@@ -1,4 +1,6 @@
 import { extendTheme } from '@chakra-ui/react';
+import { modalTheme } from './modal';
+
 import buttonTheme from './button';
 import colors from './color';
 
@@ -14,6 +16,7 @@ const theme = extendTheme({
   colors,
   components: {
     Button: buttonTheme,
+    Modal: modalTheme,
   },
 });
 
