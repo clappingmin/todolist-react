@@ -3,13 +3,11 @@ import {Outlet} from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import './styles/global.scss';
 import {theme} from "./styles/chakra/global.ts";
-import {ChakraProvider, LightMode, localStorageManager} from '@chakra-ui/react';
+import {ChakraProvider} from '@chakra-ui/react';
 
 function Root() {
-
-
     return (
-        <ChakraProvider theme={theme} colorModeManager={localStorageManager}>
+        <ChakraProvider theme={theme}>
             {/*chakraProvider를 추가하니 colorMode가 강제로 light에서 dark로 계속 바뀜*/}
             <div className={styles.wrapper}>
                 <div className={styles.phone}>
