@@ -1,5 +1,5 @@
 import type { StyleFunctionProps } from '@chakra-ui/styled-system';
-import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
+import { defineStyle } from '@chakra-ui/react';
 
 // 스타일 생성
 const xl = defineStyle({

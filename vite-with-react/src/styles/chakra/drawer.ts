@@ -18,6 +18,7 @@ const bottom = definePartsStyle({
     pb: '0px',
     display: 'flex',
     justifyContent: 'end',
+    color: 'red',
 
     button: {
       w: '24px',

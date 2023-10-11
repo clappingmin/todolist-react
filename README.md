@@ -1,4 +1,4 @@
-# todolist-react
+# react 연습장
 
 # 1. 환경설정
 
