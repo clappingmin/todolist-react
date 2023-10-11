@@ -3,6 +3,7 @@ import { modalTheme } from './modal';
 
 import buttonTheme from './button';
 import colors from './color';
+import { drawerTheme } from './drawer';
 
 // colorMode
 const config = {
@@ -17,6 +18,7 @@ const theme = extendTheme({
   components: {
     Button: buttonTheme,
     Modal: modalTheme,
+    Drawer: drawerTheme,
   },
 });
 

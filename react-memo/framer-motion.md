@@ -278,3 +278,83 @@ return (
 ```
 
 ---
+
+### Dynamic Variants
+
+- variants 안에 함수로 작성해서 custom으로 넘긴 변수를 받아서 적용할 수 있다.
+
+```javascript
+const [list, setList] = useState(['❤️', '🧡', '💛', '💚']);
+
+const parentVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const variants: any = {
+  hidden: {
+    opacity: 0.5,
+    y: 15,
+  },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      repeat: Infinity,
+      repeatType: 'mirror',
+      repeatDelay: i * 0.1,
+    },
+  }),
+};
+
+return (
+  <div className={styles.wrapper}>
+    <motion.ul variants={parentVariants} initial="hidden" animate="visible">
+      {list.map((item, i) => {
+        return (
+          <motion.li key={i} variants={variants} custom={i}>
+            {item}
+          </motion.li>
+        );
+      })}
+    </motion.ul>
+  </div>
+);
+```
+
+---
+
+### Manual Controls
+
+- ui를 벗어나서 좀더 복잡한 애니메이션을 적용하고 싶을 때 `useAnimationControls`를 사용한다.
+
+```javascript
+const [show, setShow] = useState(false);
+const controls = useAnimationControls();
+
+useEffect(() => {
+  if (show) controls.start({ scale: 2, background: 'pink' });
+  else controls.start({ scale: 1, background: 'orange' });
+}, [show]);
+
+return (
+  <div className={styles.wrapper}>
+    <motion.h1 animate={controls}>{show ? 'WOW!' : '...'}</motion.h1>
+    <button
+      onClick={() => {
+        setShow(!show);
+      }}
+    >
+      setShow
+    </button>
+  </div>
+);
+```
