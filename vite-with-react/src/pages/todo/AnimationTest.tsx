@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import styles from './AnimationTest.module.scss';
 import {useRef} from 'react';
+import Carousel from "./components/Carousel.tsx";
 
 const AnimationTest = () => {
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -25,13 +26,15 @@ const AnimationTest = () => {
     const rightSheet = useDisclosure();
     const cancelRef = useRef<any>();
 
-    const {colorMode} = useColorMode()
-
-    console.log('야호!',colorMode);
-    debugger;
 
     return (
         <div className={styles.wrapper}>
+
+            <h1>슬라이더</h1>
+            <Carousel/>
+
+            <br/>
+
             <button onClick={onOpen}>모달 열기</button>
             <AlertDialog
                 isOpen={isOpen}

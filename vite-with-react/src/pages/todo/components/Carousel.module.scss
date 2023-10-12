@@ -1,0 +1,13 @@
+.wrapper {
+  width: 100%;
+  height: 400px;
+  background: pink;
+
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 50px;
+    left: 0;
+  }
+}
